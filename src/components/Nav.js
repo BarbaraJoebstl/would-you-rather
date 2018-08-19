@@ -16,6 +16,7 @@ export default function Nav() {
                 <li>
                     <NavLink to='/leaderboard' >Leaderboard</NavLink>
                 </li>
+                <li>LoggedIn?</li>
             </ul>
         </ nav>
     )
