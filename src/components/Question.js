@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+
 class Question extends Component {
     render() {
         const { question } = this.props
@@ -10,14 +16,31 @@ class Question extends Component {
             return <p>:( nothing here id</p>
         }
         return (
-             <Link to={`/question/${question.id}`}>
-
                 <div>
-                    <div>{question.authorName} asks</div>
-                    <div>{question.optionOne.text}</div>
-                    <div>{question.optionTwo.text}</div>
+                   <Card >
+                     <CardContent>
+                         
+
+                         <Typography color="textSecondary">
+                             {question.authorName} asks
+                         </Typography>
+                         <Typography variant="headline" component="h2">
+                             {question.optionOne.text}
+                         </Typography>
+                         <Typography color="textSecondary">
+                             OR
+                         </Typography>
+                         <Typography variant="headline" component="h2">
+                             {question.optionTwo.text}
+                         </Typography>
+                     </CardContent>
+                     <CardActions>
+                         <Button size="medium">
+                             <Link to={`/question/${question.id}`}>Go to poll</Link>
+                         </Button>
+                     </CardActions>
+                 </Card>
                 </div>
-            </Link>
         )
     }
 }

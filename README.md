@@ -1,8 +1,7 @@
 
 # TODO
-- add new question page
-- implement new question logic
-
+- not found page error handling
+- add answer questions 
 - styling
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
