@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
 import { handleInitialData } from '../actions/shared'
 import Nav from './Nav'
+import Login from './Login'
 import Leaderboard from './Leaderboard'
 import NewQuestion from './NewQuestion'
 import QuestionList from './QuestionList'
 import QuestionDetail from './QuestionDetail'
-import './App.css';
+import './App.css'
 
 class App extends Component {
 
@@ -23,11 +24,12 @@ class App extends Component {
           <LoadingBar />
           <div>
             <Nav />
-            {this.props.loading === true ? null : <div>
-              <Route path='/' exact component={QuestionList} />
-              <Route path='/question/:id' component={QuestionDetail} />
-              <Route path='/leaderboard' component={Leaderboard} />
-              <Route path='/new' component={NewQuestion} />
+            {this.props.loading === true ? <Login/> : <div>
+                <Route path='/login' exact component={Login} />
+                <Route path='/' exact component={QuestionList} />
+                <Route path='/question/:id' component={QuestionDetail} />
+                <Route path='/leaderboard' component={Leaderboard} />
+                <Route path='/new' component={NewQuestion} />
             </div>}
           </div>
         </Fragment>
@@ -36,7 +38,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({authedUser}) {
   return {
     loading: authedUser === null
   }

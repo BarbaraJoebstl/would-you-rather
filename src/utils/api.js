@@ -4,6 +4,7 @@ import {
     _saveQuestion,
     _saveQuestionAnswer,
 } from './_DATA.js'
+
 import users from '../reducers/users.js';
 
 export function getInitialData() {
@@ -14,4 +15,12 @@ export function getInitialData() {
         users,
         questions
     }))
+}
+
+export function saveQuestion (question) {
+    return _saveQuestion(question)
+}
+
+export function saveQuestionAnswer(question) {
+    return _saveQuestionAnswer(question)
 }

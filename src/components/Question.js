@@ -6,28 +6,30 @@ class Question extends Component {
     render() {
         const { question } = this.props
 
-        const { id, author, optionOne, optionTwo } = question
+        if (question == null) {
+            return <p>:( nothing here id</p>
+        }
         return (
-            <Link to={`/question/${id}`}>
+             <Link to={`/question/${question.id}`}>
+
                 <div>
-                    <div>{author}</div>
-                    <div>{optionOne.text}</div>
-                    <div>{optionTwo.text}</div>
-                    <div>{id}</div>
+                    <div>{question.authorName} asks</div>
+                    <div>{question.optionOne.text}</div>
+                    <div>{question.optionTwo.text}</div>
                 </div>
             </Link>
         )
     }
 }
 
-function mapStateToProps({ authedUser, questions, users }, { id }) {
+function mapStateToProps({authedUser, users, questions}, {id}) {
     const question = questions[id]
 
     return {
         authedUser,
-        question: question
-        // TODO: sort by time
+        question: question ? Object.assign({}, question, {
+            authorName: users[question.author].name }) : null
     }
 }
 
-export default connect(mapStateToProps)(Question)
+export default withRouter(connect(mapStateToProps)(Question))
