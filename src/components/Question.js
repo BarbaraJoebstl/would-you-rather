@@ -19,8 +19,6 @@ class Question extends Component {
                 <div>
                    <Card >
                      <CardContent>
-                         
-
                          <Typography color="textSecondary">
                              {question.authorName} asks
                          </Typography>

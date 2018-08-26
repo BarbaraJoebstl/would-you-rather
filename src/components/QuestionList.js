@@ -48,8 +48,8 @@ class QuestionList extends Component {
 
     filterUnansweredQuestions(questions, authedUser) {
         return  questions.filter(question => (
-            ![...question.optionOne.votes,
-            ...question.optionTwo.votes,].some(userId => userId === authedUser.id)
+            [...question.optionOne.votes,
+            ...question.optionTwo.votes,].some(userId => userId != authedUser.id)
         ));
     }
 
@@ -79,23 +79,18 @@ class QuestionList extends Component {
                         onChangeIndex={this.handleChangeIndex}
                     >
                         <TabContainer>
-                            <ul>
                                 {unanswered.map((question) => (
-                                    <li key={question.id}>
+                                    <div key={question.id}>
                                         <Question  id={question.id} />
-                                        {question.id}
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
                         </TabContainer>
                         <TabContainer>
-                            <ul>
                                 {answered.map((question) => (
-                                    <li key={question.id}>
+                                    <div key={question.id}>
                                         <Question id={question.id} />
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
                         </TabContainer>
                     </SwipeableViews>
                 </div>

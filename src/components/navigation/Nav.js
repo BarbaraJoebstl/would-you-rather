@@ -32,18 +32,19 @@ export class Nav extends Component {
                             <Typography color="inherit" aria-label="Menu">
                                 <NavLink to='/leaderboard' >Leaderboard</NavLink>
                             </Typography>
+                            <Typography color="inherit" aria-label="Menu">
+                                <NavLink to='/new' >add new question</NavLink>
+                            </Typography>
+
 
                             {this.props.currentUser ?
                                 <div>
-                                    <div>{this.props.currentUser.name}</div>
                                     <Avatar alt={this.props.currentUser.name} src={this.props.currentUser.avatarURL} />
+                                    <span>Hello, {this.props.currentUser.name}! </span>
                                     <button onClick={(e) => {this.handleLogout()}}>LOGOUT</button>
                                 </div> :
-
                                 <Link color="inherit" to={'/login'}>Login</Link>
                             }
-
-
                         </Toolbar>
                     </AppBar>
                 </div>

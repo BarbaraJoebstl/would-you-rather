@@ -1,56 +1,61 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {formatQuestion} from '../utils/_DATA'
+import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom';
 import {handleAddQuestion} from "../actions/questions";
+import Button from '@material-ui/core/Button';
 
 // controlled component
 class NewQuestion extends Component {
 
         state = {
-            optionOne: '',
-            optionTwo: ''
+            optionOneText: '',
+            optionTwoText: '',
+            toHome: false,
         }
-
-    handleChange(e) {
-
-        this.setState({[e.target.name]: e.target.value});
-    }
 
     handleSubmit = (e) => {
         e.preventDefault()
 
         const {dispatch} = this.props
 
-        dispatch(handleAddQuestion(this.state.optionOne, this.state.optionTwo))
-            .then(() => {
-                this.props.history.push('/')
-            });
+        dispatch(handleAddQuestion(this.state.optionOneText, this.state.optionTwoText))
 
         this.setState(() => ({
-            optionOne: '',
-            optionTwo: ''
+            optionOneText: '',
+            optionTwoText: '',
+            toHome: true
         }))
     }
 
     render() {
-        return (
+
+        const {optionOneText, optionTwoText, toHome} = this.state
+
+        if (toHome === true) {
+            return <Redirect to='/' />
+                }
+
+
+                return (
+
             <div>
-                <h3>HELLO NEw question Would you rather ...?</h3>
+                <h3>HELLO New question Would you rather ...?</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>Option One</label>
                     <textarea type="text"
-                              value={this.state.optionOne}
-                              name="optionOne"
-                              onChange={(e) => this.setState({ optionOne: e.target.value })}
+                              value={optionOneText}
+                              name="optionOneText"
+                              onChange={(e) => this.setState({ optionOneText: e.target.value })}
                               />
                     <label>Option Two</label>
                     <textarea type="text"
-                              value={this.state.optionTwo}
-                              name="optionTwo"
-                              onChange={(e) => this.setState({ optionTwo: e.target.value })}/>
-                    <button
+                              value={this.state.optionTwoText}
+                              name="optionTwoText"
+                              onChange={(e) => this.setState({ optionTwoText: e.target.value })}/>
+                    <Button
                     type='submit'
-                    disabled={this.state.optionOne === '' || this.state.optionTwo === ''}>Submit</button>
+                    size="large" color="primary"
+                    disabled={optionOneText === '' || optionTwoText === ''}>Submit</Button>
                 </form>
             </div>
 
