@@ -5,8 +5,6 @@ import {handleAddQuestion} from "../actions/questions";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 
 // controlled component
@@ -42,7 +40,7 @@ class NewQuestion extends Component {
                 return (
 
                     <Grid container spacing={24} style={{padding: 24}} justify="center">
-                                <Grid item xs={12} sm={6} lg={4} xl={3}>
+                                <Grid item xs={12} sm={6} lg={6} xl={6}>
                                     <Card>
                                     <form onSubmit={this.handleSubmit}>
                                         <i>Would you rather</i>
