@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -18,34 +20,37 @@ export class Nav extends Component {
 
         render() {
 
-
             return (
                 <div>
-                    <AppBar position="dynamic">
+                    <AppBar position="static">
                         <Toolbar>
+
+                        <Tabs >
                             <Typography variant="title" color="inherit">
                                 Would you rather...
                             </Typography>
-                            <Typography color="inherit" aria-label="Menu">
-                                <NavLink to='/' exact>HOME</NavLink>
-                            </Typography>
-                            <Typography color="inherit" aria-label="Menu">
-                                <NavLink to='/leaderboard' >Leaderboard</NavLink>
-                            </Typography>
-                            <Typography color="inherit" aria-label="Menu">
-                                <NavLink to='/new' >add new question</NavLink>
-                            </Typography>
 
 
+                            <Tab label="Home" component={Link} to="/"></Tab>
+                            <Tab label="leaderboard"  component={Link} to="/leaderboard"></Tab>
+                            <Tab label="add new question" component={Link} to="/new"></Tab>
                             {this.props.currentUser ?
-                                <div>
-                                    <Avatar alt={this.props.currentUser.name} src={this.props.currentUser.avatarURL} />
-                                    <span>Hello, {this.props.currentUser.name}! </span>
-                                    <button onClick={(e) => {this.handleLogout()}}>LOGOUT</button>
-                                </div> :
-                                <Link color="inherit" to={'/login'}>Login</Link>
+                                <div className="flex-container">
+
+                                <Avatar alt={this.props.currentUser.name} src={this.props.currentUser.avatarURL} />
+                                <h2>Hello, {this.props.currentUser.name}!</h2>
+
+                                <Tab label="Log out" onClick={(e) => {this.handleLogout()}}>
+                                    LOGOUT
+                                </Tab>
+
+                                </div>
+                                :
+                                <Tab label="Log in" component={Link} to="/login"></Tab>
                             }
+                        </Tabs>
                         </Toolbar>
+
                     </AppBar>
                 </div>
             )

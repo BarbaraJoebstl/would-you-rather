@@ -8,26 +8,21 @@ export default function questions(state = {}, action) {
                 ...action.questions
             }
         case ADD_QUESTION:
-            console.log(action)
-            const { question } = action;
                 return {
-                ... state,
-                [question.id]: question,
-            }
+                    ...state,
+                    [action.question.id]: action.question,
+                }
         case ADD_QUESTION_ANSWER:
-        return {
-        ...state,
-            isRetrieving: action.isRetrieving,
-            questions: {...state.questions,
-            [action.qid]: {
-        ...state.questions[action.qid],
-                [action.answer]: {
-            ...state.questions[action.qid][action.answer],
-                    votes: state.questions[action.qid][action.answer].votes.concat([action.authedUser])
+            return {
+                ...state,
+                [action.qid]: {
+                    ...state[action.qid],
+                    [action.selectedAnswer]: {
+                        ...state[action.qid][action.selectedAnswer],
+                        votes: state[action.qid][action.selectedAnswer].votes.concat([action.authedUser])
+                    }
+                }
             }
-        }
-        },
-        }
         default:
             return state
     }

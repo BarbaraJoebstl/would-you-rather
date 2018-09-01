@@ -7,6 +7,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
+
 
 class Question extends Component {
     render() {
@@ -16,11 +18,15 @@ class Question extends Component {
             return <p>:( nothing here id</p>
         }
         return (
-                <div>
-                   <Card >
+                   <Card>
                      <CardContent>
-                         <Typography color="textSecondary">
+                         <div color="textSecondary" className="flex-container">
+                             <Avatar alt={question.authorName}
+                                     src={question.authorAvatar} />
                              {question.authorName} asks
+                         </div>
+                         <Typography color="textSecondary">
+                             Would you rather
                          </Typography>
                          <Typography variant="headline" component="h2">
                              {question.optionOne.text}
@@ -31,25 +37,27 @@ class Question extends Component {
                          <Typography variant="headline" component="h2">
                              {question.optionTwo.text}
                          </Typography>
+
                      </CardContent>
                      <CardActions>
                          <Button size="medium">
-                             <Link to={`/question/${question.id}`}>Go to poll</Link>
+                             <Link to={`/question/${question.id}`}>
+                                 show details</Link>
                          </Button>
                      </CardActions>
                  </Card>
-                </div>
         )
     }
 }
 
-function mapStateToProps({authedUser, users, questions}, {id}) {
-    const question = questions[id]
+function mapStateToProps({authedUser, users, questions}, props) {
+    const question = questions[props.id]
 
     return {
         authedUser,
         question: question ? Object.assign({}, question, {
-            authorName: users[question.author].name }) : null
+            authorName: users[question.author].name,
+            authorAvatar: users[question.author].avatarURL}) : null,
     }
 }
 

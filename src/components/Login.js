@@ -15,6 +15,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Grid from '@material-ui/core/Grid';
 
 
 class Login extends Component {
@@ -35,25 +36,20 @@ class Login extends Component {
         const {users} = this.props;
 
         return (
-            <div> 
-                <Card>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="headline" component="h2">
-                            Lizard
-                        </Typography>
-                        <Typography component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
+
+            <Grid container spacing={24} style={{padding: 24}} justify="center">
+
+                <Grid item xs={12} sm={6} lg={4} xl={3}>
+
+            <Card className="card">
+                <Grid container justify="center">
+                <CardContent>
+
+                    <Typography gutterBottom variant="headline" component="h2">
+                            LOGIN
                         </Typography>
                     </CardContent>
                     <CardActions>
-
                         <FormControl>
                             <InputLabel htmlFor="select-user">Select User</InputLabel>
                             <NativeSelect
@@ -61,11 +57,8 @@ class Login extends Component {
                                 onChange={this.handleChange()}
                                 input={
                                     <Input name="user" id="select-user" />
-                                }
-
-                            >
+                                }>
                                 <option value="" />
-
                                 {users.map((user) => (
                                     <option value={user.id} key={user.id}>
                                         {user.name}
@@ -74,16 +67,11 @@ class Login extends Component {
                                 </NativeSelect>
                             <FormHelperText>select a user</FormHelperText>
                         </FormControl>
-
-                        <Button size="small" color="primary">
-                            Share
-                        </Button>
-                        <Button size="small" color="primary">
-                            Learn More
-                        </Button>
                     </CardActions>
+                </Grid>
                 </Card>
-            </div>
+            </Grid>
+            </Grid>
         )
     }
 }

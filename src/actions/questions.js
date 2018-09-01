@@ -37,8 +37,8 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 function addQuestionAnswer(authedUser, qid, selectedAnswer) {
     return {
         type: ADD_QUESTION_ANSWER,
-        authedUser,
-        qid,
+        authedUser: authedUser,
+        qid: qid,
         selectedAnswer
     }
 }
@@ -50,6 +50,7 @@ export function handleAddQuestionAnswer(qid, selectedAnswer) {
 
         dispatch(showLoading())
         return saveQuestionAnswer(question)
+            .then(() => dispatch(addQuestionAnswer(question.authedUser, question.qid, question.answer)))
             .then(() => dispatch(hideLoading()))
     }
 }

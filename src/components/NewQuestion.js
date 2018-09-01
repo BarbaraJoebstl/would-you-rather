@@ -3,11 +3,16 @@ import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import {handleAddQuestion} from "../actions/questions";
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
 
 // controlled component
 class NewQuestion extends Component {
 
-        state = {
+     state = {
             optionOneText: '',
             optionTwoText: '',
             toHome: false,
@@ -33,32 +38,33 @@ class NewQuestion extends Component {
 
         if (toHome === true) {
             return <Redirect to='/' />
-                }
-
-
+        }
                 return (
-
-            <div>
-                <h3>HELLO New question Would you rather ...?</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Option One</label>
-                    <textarea type="text"
-                              value={optionOneText}
-                              name="optionOneText"
-                              onChange={(e) => this.setState({ optionOneText: e.target.value })}
-                              />
-                    <label>Option Two</label>
-                    <textarea type="text"
-                              value={this.state.optionTwoText}
-                              name="optionTwoText"
-                              onChange={(e) => this.setState({ optionTwoText: e.target.value })}/>
+                  <div className="flex-container">
+                                    <form onSubmit={this.handleSubmit}>
+                                        <i>Would you rather</i>
+                        <TextField
+                            label="Option one"
+                            id="margin-normal"
+                            defaultValue={optionOneText}
+                            margin="normal"
+                            onChange={(e) => this.setState({ optionOneText: e.target.value })}
+                        />
+                                        <i>or</i>
+                                        <TextField
+                                            label="Option two"
+                                            id="margin-normal"
+                                            defaultValue={optionTwoText}
+                                            margin="normal"
+                                            onChange={(e) => this.setState({ optionTwoText: e.target.value })}
+                                        />
+                                        <i>?</i>
                     <Button
                     type='submit'
                     size="large" color="primary"
-                    disabled={optionOneText === '' || optionTwoText === ''}>Submit</Button>
+                    disabled={optionOneText === '' || optionTwoText === ''}>Add this question</Button>
                 </form>
-            </div>
-
+</div>
     )
     }
 }

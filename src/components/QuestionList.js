@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
+import Grid from '@material-ui/core/Grid';
 
 function TabContainer(props) {
     const { children, dir } = props;
@@ -42,22 +43,22 @@ class QuestionList extends Component {
     filterAnsweredQuestions(questions, authedUser) {
         return  questions.filter(question => (
             [...question.optionOne.votes,
-            ...question.optionTwo.votes,].some(userId => userId === authedUser.id)
+            ...question.optionTwo.votes,].some(userId => userId === authedUser)
         ));
     }
 
     filterUnansweredQuestions(questions, authedUser) {
         return  questions.filter(question => (
-            [...question.optionOne.votes,
-            ...question.optionTwo.votes,].some(userId => userId != authedUser.id)
+            ![...question.optionOne.votes,
+            ...question.optionTwo.votes,].some(userId => userId === authedUser)
         ));
     }
 
 
     render() {
 
-        let unanswered = this.filterUnansweredQuestions(this.props.questions, this.props.authedUser)
         let answered = this.filterAnsweredQuestions(this.props.questions, this.props.authedUser)
+        let unanswered = this.filterUnansweredQuestions(this.props.questions, this.props.authedUser)
 
         return (
             <div>
@@ -79,18 +80,23 @@ class QuestionList extends Component {
                         onChangeIndex={this.handleChangeIndex}
                     >
                         <TabContainer>
+                            <Grid container spacing={24} style={{padding: 24}}>
                                 {unanswered.map((question) => (
-                                    <div key={question.id}>
+                                    <Grid item xs={12} sm={6} lg={4} xl={3} key={question.id}>
                                         <Question  id={question.id} />
-                                    </div>
+                                    </Grid>
                                 ))}
+                                </Grid>
                         </TabContainer>
+
                         <TabContainer>
+                            <Grid container spacing={24} style={{padding: 24}}>
                                 {answered.map((question) => (
-                                    <div key={question.id}>
-                                        <Question id={question.id} />
-                                    </div>
+                                    <Grid item xs={12} sm={6} lg={4} xl={3} key={question.id}>
+                                        <Question  id={question.id} />
+                                    </Grid>
                                 ))}
+                            </Grid>
                         </TabContainer>
                     </SwipeableViews>
                 </div>

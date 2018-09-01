@@ -15,10 +15,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
+import Grid from '@material-ui/core/Grid';
+
+
 class QuestionDetail extends Component {
 
     state = {
-        selectedAnswer : this.props.question.optionOne.text
+        selectedAnswer : this.props.question.optionOne
     }
 
     handleChange = event => {
@@ -31,20 +34,18 @@ class QuestionDetail extends Component {
 
         const {dispatch} = this.props
 
-        dispatch(handleAddQuestionAnswer(this.props.question.id, 'optionOne'))
+        dispatch(handleAddQuestionAnswer(this.props.question.id, this.state.selectedAnswer))
             .then(() => {this.props.history.push('/')})
     }
 
     render() {
-        const { question, authedUser } = this.props
+        const { question } = this.props
 
         return (
-            <div>
+            <Grid container spacing={24} style={{padding: 24}} justify="center">
             {
-                question.isAnswerdeByAuthUser === false &&
-
-
-                    <div>
+                !question.isAnsweredByUser &&
+                <Grid item xs={12} sm={6} lg={4} xl={3}>
                         <Card>
                             <CardMedia
                                 component="img"
@@ -64,8 +65,8 @@ class QuestionDetail extends Component {
                                             value={this.state.selectedAnswer}
                                             onChange={this.handleChange}
                                         >
-                                            <FormControlLabel value={question.optionOne.text} control={<Radio />} label={question.optionOne.text} />
-                                            <FormControlLabel value={question.optionTwo.text} control={<Radio />} label={question.optionTwo.text} />
+                                            <FormControlLabel value="optionOne" control={<Radio />} label={question.optionOne.text} />
+                                            <FormControlLabel value="optionTwo" control={<Radio />} label={question.optionTwo.text} />
                                         </RadioGroup>
                                     </FormControl>
                                         <Button type="submit" size="large" color="primary">Vote</Button>
@@ -73,41 +74,32 @@ class QuestionDetail extends Component {
                                 </Typography>
                             </CardContent>
                         </Card>
-                    </div>
+                    </Grid>
             }
 
                 {
-                    question.isAnswerdeByAuthUser === true &&
-                    <div>
-<Card>
-    <Typography component="p">Asked by {question.authorName}</Typography>
-    <div>
-    <p>Would you rather {question.optionOne.text}</p>
-        <progress value={question.votesOptionTwo} max={question.totalAnswers}>
-        </progress>
+                    question.isAnsweredByUser &&
+                    <Grid item xs={12} sm={6} lg={4} xl={3}>
+                        <Card>
+                            <Typography component="p">Asked by {question.authorName}</Typography>
+                            <div>
+                            <p>Would you rather {question.optionOne.text}</p>
+                                <progress value={question.votesOptionTwo} max={question.totalAnswers}>
+                                </progress>
 
-        {question.votesOptionOne} out of {question.totalAnswers}
+                                {question.votesOptionOne} out of {question.totalAnswers}
 
-    </div>
+                            </div>
 
-    <div>
-    <p>Would you rather {question.optionTwo.text}</p>
-        <progress value={question.votesOptionTwo} max={question.totalAnswers}></progress>
-        {question.votesOptionTwo} out of {question.totalAnswers}
-    </div>
-
-
-</Card>
-
-
-
-
-                    </div>
+                            <div>
+                            <p>Would you rather {question.optionTwo.text}</p>
+                                <progress value={question.votesOptionTwo} max={question.totalAnswers}></progress>
+                                {question.votesOptionTwo} out of {question.totalAnswers}
+                            </div>
+                        </Card>
+                    </Grid>
                 }
-            </div>
-
-
-
+            </Grid>
         )
     }
 }
@@ -125,8 +117,8 @@ function mapStateToProps({ authedUser, questions, users}, props) {
             votesOptionOne: question.optionOne.votes.length,
             votesOptionTwo: question.optionTwo.votes.length,
             totalAnswers: question.optionTwo.votes.length + question.optionTwo.votes.length,
-            isAnswerdeByAuthUser: (question.optionOne.votes.includes(authedUser)
-                || (question.optionTwo.votes.includes(authedUser)))
+            isAnsweredByUser: (question.optionOne.votes.includes(authedUser.id)
+                || (question.optionTwo.votes.includes(authedUser.id)))
         }): null,
         users
     })
