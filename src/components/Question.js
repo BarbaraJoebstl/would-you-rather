@@ -14,9 +14,6 @@ class Question extends Component {
     render() {
         const { question } = this.props
 
-        if (question == null) {
-            return <p>:( nothing here id</p>
-        }
         return (
                    <Card>
                      <CardContent>
@@ -29,13 +26,7 @@ class Question extends Component {
                              Would you rather
                          </Typography>
                          <Typography variant="headline" component="h2">
-                             {question.optionOne.text}
-                         </Typography>
-                         <Typography color="textSecondary">
-                             OR
-                         </Typography>
-                         <Typography variant="headline" component="h2">
-                             {question.optionTwo.text}
+                             ... {question.optionOne.text} ...
                          </Typography>
 
                      </CardContent>

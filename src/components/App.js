@@ -9,6 +9,7 @@ import Leaderboard from './Leaderboard'
 import NewQuestion from './NewQuestion'
 import QuestionList from './QuestionList'
 import QuestionDetail from './QuestionDetail'
+import NotFound from './NotFound'
 import './App.css'
 
 class App extends Component {
@@ -30,6 +31,8 @@ class App extends Component {
                 <Route path='/question/:id' component={QuestionDetail} />
                 <Route path='/leaderboard' component={Leaderboard} />
                 <Route path='/new' component={NewQuestion} />
+                <Route path='/404' component={NotFound} />
+
             </div>}
           </div>
         </Fragment>

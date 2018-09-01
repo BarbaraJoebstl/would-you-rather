@@ -27,7 +27,6 @@ class Login extends Component {
 
     handleChange = currentUser => event => {
         this.setState({ [currentUser]: event.target.value });
-        console.log(currentUser)
         const {dispatch} = this.props;
         dispatch(logIn(event.target.value));
     };

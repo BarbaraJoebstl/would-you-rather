@@ -40,7 +40,10 @@ class NewQuestion extends Component {
             return <Redirect to='/' />
         }
                 return (
-                  <div className="flex-container">
+
+                    <Grid container spacing={24} style={{padding: 24}} justify="center">
+                                <Grid item xs={12} sm={6} lg={4} xl={3}>
+                                    <Card>
                                     <form onSubmit={this.handleSubmit}>
                                         <i>Would you rather</i>
                         <TextField
@@ -64,7 +67,9 @@ class NewQuestion extends Component {
                     size="large" color="primary"
                     disabled={optionOneText === '' || optionTwoText === ''}>Add this question</Button>
                 </form>
-</div>
+            </Card>
+                                </Grid>
+                    </Grid>
     )
     }
 }

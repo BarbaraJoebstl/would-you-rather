@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
 import {handleAddQuestionAnswer} from "../actions/questions";
 
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
@@ -14,19 +12,21 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import { Redirect } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 
 
 class QuestionDetail extends Component {
 
     state = {
-        selectedAnswer : this.props.question.optionOne
+        selectedAnswer : ''
     }
 
     handleChange = event => {
         this.setState({ selectedAnswer: event.target.value });
     };
+
 
 
     handleSubmit = (e) => {
@@ -41,12 +41,16 @@ class QuestionDetail extends Component {
     render() {
         const { question } = this.props
 
+        if (question === null) {
+            return <Redirect to='/404' />
+        }
+
         return (
             <Grid container spacing={24} style={{padding: 24}} justify="center">
             {
-                !question.isAnsweredByUser &&
+                !question.isAnsweredByUser && (
                 <Grid item xs={12} sm={6} lg={4} xl={3}>
-                        <Card>
+                    <Card>
                             <CardMedia
                                 component="img"
                                 height="140"
@@ -75,15 +79,26 @@ class QuestionDetail extends Component {
                             </CardContent>
                         </Card>
                     </Grid>
-            }
+                )}
 
                 {
-                    question.isAnsweredByUser &&
+                    question.isAnsweredByUser && (
                     <Grid item xs={12} sm={6} lg={4} xl={3}>
                         <Card>
-                            <Typography component="p">Asked by {question.authorName}</Typography>
+                            <CardContent>
+                                <div color="textSecondary" className="flex-container">
+                                    <Avatar alt={question.authorName}
+                                            src={question.authorAvatar} />
+                                    {question.authorName} asks
+                                </div>
+
                             <div>
                             <p>Would you rather {question.optionOne.text}</p>
+                                { question.usersChoice === "optionOne" && (
+                                    <div>
+                                        YOUR CHOICE
+                                    </div>
+                                )}
                                 <progress value={question.votesOptionTwo} max={question.totalAnswers}>
                                 </progress>
 
@@ -92,13 +107,20 @@ class QuestionDetail extends Component {
                             </div>
 
                             <div>
+
                             <p>Would you rather {question.optionTwo.text}</p>
+                                { question.usersChoice === "optionTwo" && (
+                                    <div>
+                                        YOUR CHOICE
+                                    </div>
+                                )}
                                 <progress value={question.votesOptionTwo} max={question.totalAnswers}></progress>
                                 {question.votesOptionTwo} out of {question.totalAnswers}
                             </div>
+                            </CardContent>
                         </Card>
                     </Grid>
-                }
+                    )}
             </Grid>
         )
     }
@@ -110,15 +132,17 @@ function mapStateToProps({ authedUser, questions, users}, props) {
 
     return Object.assign({}, props, {
         authedUser,
-        question: question ? Object.assign({}, question,
+        question: question ?
+            Object.assign({}, question,
             {
             authorName: users[question.author].name,
             authorAvatarURL: users[question.author].avatarURL,
             votesOptionOne: question.optionOne.votes.length,
             votesOptionTwo: question.optionTwo.votes.length,
             totalAnswers: question.optionTwo.votes.length + question.optionTwo.votes.length,
-            isAnsweredByUser: (question.optionOne.votes.includes(authedUser.id)
-                || (question.optionTwo.votes.includes(authedUser.id)))
+            isAnsweredByUser: (question.optionOne.votes.includes(authedUser)
+                || (question.optionTwo.votes.includes(authedUser))),
+            usersChoice: (users[authedUser].answers[id])
         }): null,
         users
     })

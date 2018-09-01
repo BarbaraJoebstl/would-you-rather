@@ -22,28 +22,20 @@ export class Nav extends Component {
 
             return (
                 <div>
-                    <AppBar position="static">
+                    <AppBar position="dynamic">
                         <Toolbar>
 
                         <Tabs >
-                            <Typography variant="title" color="inherit">
-                                Would you rather...
-                            </Typography>
-
-
-                            <Tab label="Home" component={Link} to="/"></Tab>
+                            <Tab label="Would you rather..." component={Link} to="/"></Tab>
                             <Tab label="leaderboard"  component={Link} to="/leaderboard"></Tab>
                             <Tab label="add new question" component={Link} to="/new"></Tab>
                             {this.props.currentUser ?
                                 <div className="flex-container">
-
                                 <Avatar alt={this.props.currentUser.name} src={this.props.currentUser.avatarURL} />
                                 <h2>Hello, {this.props.currentUser.name}!</h2>
-
                                 <Tab label="Log out" onClick={(e) => {this.handleLogout()}}>
                                     LOGOUT
                                 </Tab>
-
                                 </div>
                                 :
                                 <Tab label="Log in" component={Link} to="/login"></Tab>
