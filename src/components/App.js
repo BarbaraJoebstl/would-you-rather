@@ -28,9 +28,9 @@ class App extends Component {
             {this.props.loading === true ? <Login/> : <div>
                 <Route path='/login' exact component={Login} />
                 <Route path='/' exact component={QuestionList} />
-                <Route path='/question/:id' component={QuestionDetail} />
+                <Route path='/questions/:id' component={QuestionDetail} />
                 <Route path='/leaderboard' component={Leaderboard} />
-                <Route path='/new' component={NewQuestion} />
+                <Route path='/add' component={NewQuestion} />
                 <Route path='/404' component={NotFound} />
 
             </div>}

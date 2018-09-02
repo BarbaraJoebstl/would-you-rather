@@ -32,7 +32,7 @@ class Question extends Component {
                      </CardContent>
                      <CardActions>
                          <Button size="medium">
-                             <Link to={`/question/${question.id}`}>
+                             <Link to={`/questions/${question.id}`}>
                                  show details</Link>
                          </Button>
                      </CardActions>

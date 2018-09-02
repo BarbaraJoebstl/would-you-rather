@@ -29,13 +29,12 @@ export class Nav extends Component {
                 <div>
                     <AppBar position="dynamic">
                         <Toolbar>
-
                         <Tabs  value={this.state.value}
                                onChange={this.handleChange}
                                centered>
                             <Tab label="Would you rather..." component={Link} to="/"></Tab>
                             <Tab label="leaderboard"  component={Link} to="/leaderboard"></Tab>
-                            <Tab label="add new question" component={Link} to="/new"></Tab>
+                            <Tab label="add new question" component={Link} to="/add"></Tab>
                             {this.props.currentUser ?
                                 <div className="flex-container">
                                 <Avatar alt={this.props.currentUser.name} src={this.props.currentUser.avatarURL} />
