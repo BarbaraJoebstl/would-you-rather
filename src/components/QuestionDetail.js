@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {handleAddQuestionAnswer} from "../actions/questions";
+import {handleAddQuestionAnswer} from "../actions/shared"
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
 import { Redirect } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
 
 
 class QuestionDetail extends Component {
@@ -24,9 +24,8 @@ class QuestionDetail extends Component {
     }
 
     handleChange = event => {
-        this.setState({ selectedAnswer: event.target.value });
+        this.setState({ selectedAnswer: event.target.value })
     };
-
 
 
     handleSubmit = (e) => {
@@ -51,18 +50,16 @@ class QuestionDetail extends Component {
                 !question.isAnsweredByUser && (
                 <Grid item xs={12} sm={6} lg={4} xl={3}>
                     <Card>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={question.authorAvatarURL}
-                                title={question.authorName}
-                            />
                             <CardContent>
+                                <div color="textSecondary" className="flex-container">
+                                    <Avatar alt={question.authorName}
+                                            src={question.authorAvatar} />
+                                    {question.authorName} asks: Would you rather
+                                </div>
                                 <Typography component="p">
                                     <form onSubmit={this.handleSubmit}>
 
                                     <FormControl component="fieldset">
-                                        <FormLabel component="legend"> {question.authorName}  asks</FormLabel>
                                         <RadioGroup
                                             aria-label="wouldYouRather"
                                             name="would you rather"
@@ -70,8 +67,11 @@ class QuestionDetail extends Component {
                                             onChange={this.handleChange}
                                         >
                                             <FormControlLabel value="optionOne" control={<Radio />} label={question.optionOne.text} />
+
                                             <FormControlLabel value="optionTwo" control={<Radio />} label={question.optionTwo.text} />
+
                                         </RadioGroup>
+                                        <h3>?</h3>
                                     </FormControl>
                                         <Button type="submit" size="large" color="primary">Vote</Button>
                                     </form>
@@ -88,7 +88,7 @@ class QuestionDetail extends Component {
                             <CardContent>
                                 <div color="textSecondary" className="flex-container">
                                     <Avatar alt={question.authorName}
-                                            src={question.authorAvatar} />
+                                            src={question.authorAvatarURL} />
                                     {question.authorName} asks
                                 </div>
 
@@ -105,9 +105,7 @@ class QuestionDetail extends Component {
                                 {question.votesOptionOne} out of {question.totalAnswers}
 
                             </div>
-
                             <div>
-
                             <p>Would you rather {question.optionTwo.text}</p>
                                 { question.usersChoice === "optionTwo" && (
                                     <div>
@@ -139,7 +137,7 @@ function mapStateToProps({ authedUser, questions, users}, props) {
             authorAvatarURL: users[question.author].avatarURL,
             votesOptionOne: question.optionOne.votes.length,
             votesOptionTwo: question.optionTwo.votes.length,
-            totalAnswers: question.optionTwo.votes.length + question.optionTwo.votes.length,
+            totalAnswers: (question.optionTwo.votes.length + question.optionTwo.votes.length),
             isAnsweredByUser: (question.optionOne.votes.includes(authedUser)
                 || (question.optionTwo.votes.includes(authedUser))),
             usersChoice: (users[authedUser].answers[id])

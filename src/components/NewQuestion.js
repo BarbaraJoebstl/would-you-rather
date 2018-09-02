@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import {handleAddQuestion} from "../actions/questions";
+import {handleAddQuestion} from "../actions/shared";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';

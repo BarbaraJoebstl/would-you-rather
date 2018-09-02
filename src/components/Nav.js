@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {logOut} from "../actions/auth";
+import {logOut} from "../actions/auth"
 import { Link } from 'react-router-dom'
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Avatar from '@material-ui/core/Avatar';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Avatar from '@material-ui/core/Avatar'
 
 
 export class Nav extends Component {
-        handleLogout() {
-            const {dispatch} = this.props;
-            dispatch(logOut());
-        }
+
     state = {
         value: 0,
-    };
+    }
+
+    handleLogout() {
+        const {dispatch} = this.props
+        dispatch(logOut())
+    }
 
     handleChange = (event, value) => {
-        this.setState({ value });
+        this.setState({ value })
     };
 
     render() {
-
             return (
                 <div>
                     <AppBar position="dynamic">
