@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import Table from '@material-ui/core/Table';
@@ -9,10 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-
-class Leaderboard extends Component {
-    render() {
-        let users = this.props.users;
+// stateless functional component, because we only render data
+const Leaderboard = (props) => {
+        let users = props.users;
 
         return (
             <Grid container spacing={24} style={{padding: 24}} justify="center">
@@ -49,7 +48,7 @@ class Leaderboard extends Component {
 
         )
     }
-}
+
 
 function mapStateToProps({ users }) {
     const usersWithScore = Object.values(users).map((user) => {

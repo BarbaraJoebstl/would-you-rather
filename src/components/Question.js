@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
@@ -9,10 +9,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 
-
-class Question extends Component {
-    render() {
-        const { question } = this.props
+// stateless functional component
+const Question = (props) => {
+        const { question } = props
 
         return (
                    <Card>
@@ -38,7 +37,6 @@ class Question extends Component {
                      </CardActions>
                  </Card>
         )
-    }
 }
 
 function mapStateToProps({authedUser, users, questions}, props) {

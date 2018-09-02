@@ -1,4 +1,3 @@
-
 import {addUserAnswer, addUserQuestion, receiveUsers} from './users'
 import { receiveQuestions, addQuestion, addQuestionAnswer } from
     './questions'
@@ -30,8 +29,8 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 
         return saveQuestion(newQuestion)
             .then((question) => {
-                dispatch(addQuestion(question)),
-                    dispatch(addUserQuestion(question))
+                dispatch(addQuestion(question))
+                dispatch(addUserQuestion(question))
             })
 
             .then(()=> dispatch(hideLoading()))
@@ -46,8 +45,8 @@ export function handleAddQuestionAnswer(qid, selectedAnswer) {
         dispatch(showLoading())
         return saveQuestionAnswer(question)
             .then(() =>  {
-                dispatch(addQuestionAnswer(question.authedUser, question.qid, question.answer)),
-                    dispatch(addUserAnswer(question.authedUser, question.qid, question.answer))
+                dispatch(addQuestionAnswer(question.authedUser, question.qid, question.answer))
+                dispatch(addUserAnswer(question.authedUser, question.qid, question.answer))
             })
             .then(() => dispatch(hideLoading()))
     }
